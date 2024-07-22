@@ -1,9 +1,8 @@
 {
-  "name": "nodejs",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is the directory for working of backend kindly frontend peoples stay away from this",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^18.0.6",
     "express": "^4.19.2"
   }
 }
