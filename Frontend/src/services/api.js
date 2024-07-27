@@ -23,7 +23,7 @@ const clothingItems = [
     material: "98% Cotton, 2% Elastane",
     stock: 75,
     images: [
-      "https://i.postimg.cc/6QQh9366/white-front.png",
+      "https://i.postimg.cc/bJZrNX22/Screenshot-2024-07-27-101301.png",
       "https://i.postimg.cc/yYQGcwJN/Screenshot-2024-07-27-101413.png",
     ],
   },

@@ -105,8 +105,8 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-gray-800 sticky top-0 w-full z-10 text-white ">
-      <Disclosure as="nav" className="bg-gray-800">
+    <header className="bg-black sticky top-0 w-full z-10 text-white ">
+      <Disclosure as="nav" className="bg-black">
         <div className="h-16 flex justify-between items-center relative mx-4 md:mx-14">
           <Logo />
           <nav className="md:w-7/12  flex justify-between">
