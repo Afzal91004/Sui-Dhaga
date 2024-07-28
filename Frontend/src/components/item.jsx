@@ -17,9 +17,9 @@ const ProductCard = ({ item }) => {
   };
 
   const handleAddToCart = () => {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const existingItem = cart.find(cartItem => cartItem.id === item.id);
-  
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const existingItem = cart.find((cartItem) => cartItem.id === item.id);
+
     if (existingItem) {
       existingItem.quantity = (existingItem.quantity || 1) + 1;
       existingItem.selectedSize = selectedSize;
@@ -27,10 +27,10 @@ const ProductCard = ({ item }) => {
     } else {
       cart.push({ ...item, quantity: 1, selectedSize, selectedColor });
     }
-  
-    localStorage.setItem('cart', JSON.stringify(cart));
-    window.dispatchEvent(new CustomEvent('cartUpdated'));
-  };  
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    window.dispatchEvent(new CustomEvent("cartUpdated"));
+  };
 
   return (
     <div className="flex flex-col items-center justify-center h-full p-6 bg-gradient-to-r from-black/50 to-black border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
@@ -105,40 +105,41 @@ const ProductCard = ({ item }) => {
           {item.stock}
         </span>
       </p>
-      <div className="mb-4">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          Available Sizes:
-        </h3>
-        <select
-          value={selectedSize}
-          onChange={(e) => setSelectedSize(e.target.value)}
-          className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-        >
-          {item.sizes.map((size) => (
-            <option key={size} value={size}>
-              {size}
-            </option>
-          ))}
-        </select>
-      </div>
+      <div className="flex gap-8">
+        <div className="mb-4">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            Available Sizes:
+          </h3>
+          <select
+            value={selectedSize}
+            onChange={(e) => setSelectedSize(e.target.value)}
+            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+          >
+            {item.sizes.map((size) => (
+              <option key={size} value={size}>
+                {size}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      <div className="mb-4">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          Available Colors:
-        </h3>
-        <select
-          value={selectedColor}
-          onChange={(e) => setSelectedColor(e.target.value)}
-          className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-        >
-          {item.colors.map((color) => (
-            <option key={color} value={color}>
-              {color}
-            </option>
-          ))}
-        </select>
+        <div className="mb-4">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            Available Colors:
+          </h3>
+          <select
+            value={selectedColor}
+            onChange={(e) => setSelectedColor(e.target.value)}
+            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+          >
+            {item.colors.map((color) => (
+              <option key={color} value={color}>
+                {color}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
-
       <button
         type="button"
         className="mt-4 px-6 py-2 text-white bg-gray-600 rounded-lg hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:bg-gray-500 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
