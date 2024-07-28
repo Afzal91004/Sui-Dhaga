@@ -14,13 +14,14 @@ import {
   MenuItem,
   MenuItems,
 } from "@headlessui/react";
+
 const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
+  { name: "Your Profile", to: "/profile" },
+  { name: "Settings", to: "/settings" },
   { name: "Sign out", href: "#" },
 ];
 
-const user = {
+const defaultUser = {
   name: "Afzal Shaikh",
   email: "tom@example.com",
   imageUrl:
@@ -30,37 +31,42 @@ const user = {
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [itemCount, setItemCount] = useState(0);
+  const user = JSON.parse(localStorage.getItem("user")) || defaultUser;
 
   useEffect(() => {
     const updateCartCount = () => {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      setItemCount(cart.reduce((count, item) => count + (item.quantity || 0), 0));
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      setItemCount(
+        cart.reduce((count, item) => count + (item.quantity || 0), 0)
+      );
     };
 
     updateCartCount();
-    window.addEventListener('cartUpdated', updateCartCount);
+    window.addEventListener("cartUpdated", updateCartCount);
 
     return () => {
-      window.removeEventListener('cartUpdated', updateCartCount);
+      window.removeEventListener("cartUpdated", updateCartCount);
     };
   }, []);
 
-  const Logo = () => {
-    return (
-      <div className="md:w-5/12">
-        <Link to="/">
-          <h2 className="text-white cursor-pointer">S&S</h2>
-        </Link>
-      </div>
-    );
-  };
+  const Logo = () => (
+    <div className="md:w-5/12">
+      <Link to="/">
+        <h2 className="text-white cursor-pointer">S&S</h2>
+      </Link>
+    </div>
+  );
 
   const MenuBar = () => (
     <Menu as="div" className="relative ml-3">
       <div>
         <MenuButton className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none">
           <span className="sr-only">Open user menu</span>
-          <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+          <img
+            className="h-8 w-8 rounded-full"
+            src={user.imageUrl}
+            alt={user.name}
+          />
         </MenuButton>
       </div>
       <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
@@ -68,12 +74,14 @@ const Header = () => {
           {userNavigation.map((item) => (
             <MenuItem key={item.name}>
               {({ active }) => (
-                <a
-                  href={item.href}
-                  className={`block px-4 py-2 text-sm ${active ? "bg-gray-100 text-gray-900" : "text-gray-700"}`}
+                <Link
+                  to={item.to}
+                  className={`block px-4 py-2 text-sm ${
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700"
+                  }`}
                 >
                   {item.name}
-                </a>
+                </Link>
               )}
             </MenuItem>
           ))}
