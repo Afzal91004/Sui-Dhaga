@@ -16,6 +16,22 @@ const ProductCard = ({ item }) => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % item.images.length);
   };
 
+  const handleAddToCart = () => {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const existingItem = cart.find(cartItem => cartItem.id === item.id);
+  
+    if (existingItem) {
+      existingItem.quantity = (existingItem.quantity || 1) + 1;
+      existingItem.selectedSize = selectedSize;
+      existingItem.selectedColor = selectedColor;
+    } else {
+      cart.push({ ...item, quantity: 1, selectedSize, selectedColor });
+    }
+  
+    localStorage.setItem('cart', JSON.stringify(cart));
+    window.dispatchEvent(new CustomEvent('cartUpdated'));
+  };  
+
   return (
     <div className="flex flex-col items-center justify-center h-full p-6 bg-gradient-to-r from-black/50 to-black border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
       <h2 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white">
@@ -126,6 +142,7 @@ const ProductCard = ({ item }) => {
       <button
         type="button"
         className="mt-4 px-6 py-2 text-white bg-gray-600 rounded-lg hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:bg-gray-500 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
+        onClick={handleAddToCart}
       >
         Add to Cart
       </button>
